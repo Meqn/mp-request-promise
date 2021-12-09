@@ -1,0 +1,22 @@
+{
+  "name": "mp-axios",
+  "version": "1.0.0",
+  "description": "Promise based HTTP client for miniprogram.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meqn/mp-axios.git"
+  },
+  "keywords": [
+    "axios"
+  ],
+  "author": "Mervin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Meqn/mp-axios/issues"
+  },
+  "homepage": "https://github.com/Meqn/mp-axios#readme"
+}
