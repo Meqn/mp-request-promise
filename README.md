@@ -13,6 +13,20 @@ Promise based HTTP client for miniprogram.
 * 🍱 支持微信、QQ、支付宝、百度、头条、Taro、Uni-App等小程序平台
 
 
+## API
+
+**methods:**
+* `request.create(api, config): request;`
+* `request<T>(config): Promise<T>;`
+* `request.get<T>(url, data?, config?): Promise<T>;`
+* `request.post<T>(url, data?, config?): Promise<T>;`
+* `request.put<T>(url, data?, config?): Promise<T>;`
+* `request.delete<T>(url, data?, config?): Promise<T>;`
+* `request.options<T>(url, data?, config?): Promise<T>;`
+* `request.head<T>(url, data?, config?): Promise<T>;`
+* `request.trace<T>(url, data?, config?): Promise<T>;`
+* `request.connect<T>(url, data?, config?): Promise<T>;`
+
 
 ## Usage
 
@@ -45,7 +59,7 @@ request({ url: '', method: 'post', data: {} })
 request.post('url', data, { ...config })
 
 // 3. put请求
-request({ url: '', method: 'post', data: {} })
+request({ url: '', method: 'put', data: {} })
 request.put('url', data)
 
 // 4. delete
@@ -64,7 +78,7 @@ import Taro from '@tarojs/taro'
 
 // 创建新的对象
 const service = Request.create(Taro, {
-  // BASE_URL: '',
+  baseURL: 'https://api.com',
   // timeout: 12000
 })
 
@@ -104,12 +118,12 @@ export default service
 import request from '../utils/request.js'
 
 // get 请求
-request({ url: '' });
+request({ url: '/api/news/' });
 // 或
-request.get('url');
+request.get('/api/news/');
 
 // post请求
-request.post('url', { username: '', password: '' })
+request.post('/api/login/', { username: '', password: '' })
   .then(data => {
     console.log('response', data)
   })
