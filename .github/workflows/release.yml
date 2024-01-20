@@ -1,0 +1,57 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          package-name: mp-request-promise
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: false
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
+          changelog-types: '[{"type":"feat","section":"🚀 Features","hidden":false},{"type":"fix","section":"🐛 Bug Fixes","hidden":false},{"type":"perf","section":"🌟 Performance","hidden":false},{"type":"chore","section":"🚚 Miscellaneous","hidden":false}]'
+          # release-as: v1.0.0
+          prerelease: false
+      
+      # 下面是处理 build 和 npm发布逻辑
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: CI
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm test -- --coverage
+          pnpm build
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        if: ${{ steps.release.outputs.release_created }}
