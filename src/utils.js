@@ -1,3 +1,7 @@
+export function isObject(arg) {
+  return null !== arg && typeof arg === 'object'
+}
+
 export function isPlainObject(arg) {
   return Object.prototype.toString.call(arg) === '[object Object]'
 }
@@ -23,13 +27,13 @@ export function extend(t, o, c) {
 
 // 合并对象
 export function merge(target, ...sources) {
-  if (isPlainObject(target)) {
+  if (isObject(target)) {
     for (const source of sources) {
-      if (isPlainObject(source)) {
+      if (isObject(source)) {
         Object.keys(source).forEach(key => {
-          if (isPlainObject(source[key])) {
+          if (isObject(source[key])) {
             // 如果目标对象的相应属性也是对象，则递归合并
-            if (isPlainObject(target[key])) {
+            if (isObject(target[key])) {
               target[key] = merge(target[key], source[key])
             } else {
               // 否则直接赋值
@@ -57,6 +61,8 @@ export function optimizeConfig(configuration, api) {
   } else {
     config.url = url
   }
+
+  config.method = (config.method || 'GET').toUpperCase()
 
   // 支付宝小程序仅支持 headers
   if (typeof my !== 'undefined' && api === my) {

@@ -15,7 +15,7 @@ export function adapter(request, config) {
         resolve({ config, ...response })
       },
       fail(error) {
-        // 请求发送失败，断网|取消请求|请求超时了
+        // 请求发送失败
         reject({ config, ...error })
       }
     })
@@ -27,7 +27,6 @@ export function adapter(request, config) {
   })
 }
 
-// 使用配置的适配器将请求分派到服务器。
 export function dispatchRequest(config) {
   return adapter(this.api.request, config)
     .then(response => {
