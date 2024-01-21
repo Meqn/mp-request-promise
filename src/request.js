@@ -19,7 +19,7 @@ function createInstance(api, defaultConfig = {}) {
 }
 
 const request = createInstance(defaults)
-request.Request = Axios
+request.MpRequest = Axios
 request.CancelToken = CancelToken
 request.default = request
 
