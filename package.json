@@ -1,6 +1,6 @@
 {
   "name": "mp-request-promise",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Promise based HTTP client for miniprogram. 基于promise的小程序网络请求库,实现拦截器、取消请求等功能,用法类似axios.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
